@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -11,7 +12,7 @@ import javafx.scene.control.TextInputDialog;
 public interface Mensagem {
 
     public static void alerta(Alert.AlertType tipo, String titulo, String cabecalho, String conteudo){
-        
+       
         Alert mensagem = new Alert(tipo);
         
         if(tipo == Alert.AlertType.NONE){
@@ -46,5 +47,26 @@ public interface Mensagem {
         }
         return null;
     }
+    
+       public static boolean Confirmacao(String mensagemConfirmacao){
+       
+            Alert mensagem = new Alert(Alert.AlertType.WARNING);
+
+            mensagem.setTitle("ATENÇÃO");
+            mensagem.setHeaderText(mensagemConfirmacao);
+            mensagem.getOnCloseRequest();
+            mensagem.getButtonTypes().removeAll(ButtonType.OK);
+            mensagem.getButtonTypes().add(ButtonType.YES);
+            mensagem.getButtonTypes().add(ButtonType.NO);
+            Optional<ButtonType> result =  mensagem.showAndWait();
+            
+            if (result.get() == ButtonType.YES){
+                return true;
+            } else {
+                return false;
+            }
+            
+        
+}
     
 }

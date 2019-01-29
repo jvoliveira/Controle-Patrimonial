@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 
 /**
@@ -23,7 +22,7 @@ public class Modelo implements Serializable {
     
     private String descricao;
     
-    @ManyToOne @CascadeOnDelete
+    @ManyToOne
     private Marca marca = new Marca();
 
     public Modelo() {
