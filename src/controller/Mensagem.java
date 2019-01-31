@@ -43,7 +43,7 @@ public interface Mensagem {
             return textoDigitado;
         } catch (Exception e) {
             System.out.println("ERRO AO INSERIR A ENTRADA | INTERFACE MENSAGEM");
-            alerta(Alert.AlertType.ERROR, "Erro na entrada de dados", "Erro na entrada de dados", "Por favor verifique o conteúdo digitado e tente novamente. Caso o erro persista, entre em contato com o a T.I.");
+            alerta(Alert.AlertType.ERROR, "Erro na entrada de dados", "Erro na entrada de dados", "Por favor verifique o conteúdo digitado e tente novamente.");
         }
         return null;
     }

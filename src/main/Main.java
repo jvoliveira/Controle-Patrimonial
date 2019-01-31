@@ -14,6 +14,7 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -24,10 +25,12 @@ import javafx.stage.StageStyle;
  * @author joliveira
  */
 public class Main extends Application {
-    
+    private String user = "root"; //Nome de usuário
+    private String password = ""; //Senha do mysql
     private String banco = "controleequip";
     private String ip = "localhost";
     private String porta = "3306";
+    public static Image e;
 
     public static void main(String[] args) {
         launch(args);
@@ -37,21 +40,23 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         
         Parent root = FXMLLoader.load(getClass().getResource("/view/TelaPrincipal.fxml"));
-
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
+        
         stage.setTitle("Controle Patrimonial");
         stage.initStyle(StageStyle.DECORATED);
         gerarBD();
         alterarEncoding();
+        stage.resizableProperty().set(false);
+         e = new Image("/imagens/icon.png");
+        stage.getIcons().add(e);
+     
         stage.show();
     }
     
     private void gerarBD() {
         try{
-            String user = "root"; //Nome de usuário
-            String password = ""; //Senha do mysql
+            
             String url = "jdbc:mysql://"+ip+":"+porta+"/mysql?zeroDateTimeBehavior=convertToNull"; //URL de comunicação com o MYSQL
 
             Connection connection = DriverManager.getConnection(url, user, password); //Criando a comunicação com o banco
@@ -69,8 +74,7 @@ public class Main extends Application {
     
     private void alterarEncoding(){
          try{
-            String user = "root"; //Nome de usuário
-            String password = ""; //Senha do mysql
+            
             String url = "jdbc:mysql://"+ip+":"+porta+"/mysql?zeroDateTimeBehavior=convertToNull"; //URL de comunicação com o MYSQL
 
             Connection connection = DriverManager.getConnection(url, user, password); //Criando a comunicação com o banco

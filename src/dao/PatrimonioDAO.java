@@ -1,8 +1,6 @@
 package dao;
 
-import dao.*;
 import java.util.List;
-import model.Patrimonio;
 import model.Patrimonio;
 
 /**
@@ -23,7 +21,7 @@ public class PatrimonioDAO extends GenericDAO<Patrimonio> {
         } catch (Exception e) {
             e.printStackTrace();
             encerrar();
-            return result;
+            return null;
         }
     }
 

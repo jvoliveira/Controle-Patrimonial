@@ -15,7 +15,7 @@ import model.Equipamento;
 import model.Marca;
 import model.Modelo;
 
-public class TelaCadEquipamentosController {
+public class TelaEquipamentoCadController {
 
     @FXML
     private TextField tfDescricao;
@@ -71,13 +71,15 @@ public class TelaCadEquipamentosController {
     void novaMarca(MouseEvent event) {
 
         String nome = Mensagem.entrada("Cadastrar Marca", "Insira o nome da Marca", "Marca:");
+        if(!nome.isEmpty()){
+            Marca marca = new Marca();
+            marca.setDescricao(nome);
 
-        Marca marca = new Marca();
-        marca.setDescricao(nome);
-
-        MarcaDAO marcaDAO = new MarcaDAO();
-        marcaDAO.incluir(marca);
-        atualizaCBS();
+            MarcaDAO marcaDAO = new MarcaDAO();
+            marcaDAO.incluir(marca);
+            atualizaCBS();
+        }
+        
     }
 
     @FXML

@@ -15,7 +15,7 @@ import model.Equipamento;
 import model.Marca;
 import model.Modelo;
 
-public class TelaEditEquipamentosController {
+public class TelaEquipamentosEditController {
 
     @FXML
     private TextField tfDescricao;
@@ -100,15 +100,8 @@ public class TelaEditEquipamentosController {
     }
 
     @FXML
-    void initialize(Equipamento equip) {
-        this.equipamento = equip;
-        try {
-            MarcaDAO marcadao = new MarcaDAO();
-            ObservableList<Marca> obs = FXCollections.observableArrayList(marcadao.listarTodos());
-            cbMarca.setItems(obs);
-        } catch (Exception e) {
-            System.err.println("erro ao inicializar");
-        }
+    void initialize() {
+        atualizaCBS();
 
         cbMarca.valueProperty().addListener((ov, t, tl) -> {
             if (tl != null) {
@@ -117,11 +110,12 @@ public class TelaEditEquipamentosController {
                 cbModelo.setItems(obs);
             }
 //            cbModelo.setValue(null);
-
-        tfDescricao.setText(equip.getDescricao());
-        cbMarca.getSelectionModel().select(equip.getModelo().getMarca());
-        cbModelo.getSelectionModel().select(equip.getModelo());
         });
+        
+        equipamento = TelaEquipamentosController.retornaEquipamento();
+        tfDescricao.setText(equipamento.getDescricao());
+        cbMarca.getSelectionModel().select(equipamento.getModelo().getMarca());
+        cbModelo.getSelectionModel().select(equipamento.getModelo());
 
     }
 
@@ -137,4 +131,6 @@ public class TelaEditEquipamentosController {
         }
     }
 
+   
+    
 }
