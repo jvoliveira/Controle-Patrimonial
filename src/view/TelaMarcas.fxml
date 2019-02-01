@@ -23,11 +23,12 @@
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
+                     
                   </TableView>
                   <Button fx:id="btAtualizarTB" layoutX="371.0" layoutY="42.0" mnemonicParsing="false" onAction="#atualizaTable" text="Atualizar" />
                   <Button fx:id="btNovo" layoutX="4.0" layoutY="29.0" mnemonicParsing="false" onAction="#Novo" text="Novo" />
                   <Button fx:id="btEdit" layoutX="57.0" layoutY="29.0" mnemonicParsing="false" onAction="#Editar" text="Editar" />
-                  <Button fx:id="btExclui" layoutX="112.0" layoutY="29.0" mnemonicParsing="false" onAction="#Excluir" onMouseClicked="#ExcluirEquipamento" text="Excluir" />
+                  <Button fx:id="btExclui" layoutX="112.0" layoutY="29.0" mnemonicParsing="false" onAction="#Excluir" text="Excluir" />
                   <TextField fx:id="tfPesquisa" layoutX="210.0" layoutY="42.0" onKeyReleased="#Pesquisa" promptText="Pesquisar..." />
                </children>
             </AnchorPane>

@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import static main.Main.e;
 
 public class TelaPrincipalController {
@@ -118,7 +119,9 @@ public class TelaPrincipalController {
 
     @FXML
     void clickMiEquip(ActionEvent event) {
+        
         try {
+            
             Parent root = FXMLLoader.load(getClass().getResource("/view/TelaEquipamentos.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -142,7 +145,22 @@ public class TelaPrincipalController {
 
     @FXML
     void clickMiMarcas(ActionEvent event) {
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/TelaMarcas.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            
+            stage.setTitle("Gerenciar Marcas");
+            
+             stage.initOwner(menuBar.getScene().getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.resizableProperty().set(false);
+            stage.getIcons().add(e);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao abrir tela de marcas: \n"+e);
+        }
     }
 
     @FXML

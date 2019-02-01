@@ -2,8 +2,6 @@ package controller;
 
 import dao.EquipamentoDAO;
 import dao.PatrimonioDAO;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -92,27 +90,27 @@ public class TelaEquipamentosController {
     void ExcluirEquipamento(ActionEvent event) {
         boolean continua = true;
         Equipamento equipamento = null;
-        PatrimonioDAO pdao = new PatrimonioDAO();
+        
         equipamento = tbEquipamentos.getSelectionModel().getSelectedItem();
-        ObservableList<Patrimonio> obs = null;
-
+        
+        //VERIFICA SE O EQUIPAMENTO FOI SELECIONADO
         if (equipamento == null) {
             Mensagem.alerta(Alert.AlertType.ERROR, "ERRO AO EXCLUIR EQUIPAMENTO", "Nenhum equipamento selecionado.", "Por favor selecione e tente novamente");
             return;
         }
-
-        obs = FXCollections.observableArrayList(pdao.listarTodos());
-        for (Patrimonio ob : obs) {
+        
+        //VERIFICA SE HÁ ALGUM PATRIMONIO COM ESSE EQUIPAMENTO
+        PatrimonioDAO pdao = new PatrimonioDAO();
+        ObservableList<Patrimonio> obsPat = null;
+        obsPat = FXCollections.observableArrayList(pdao.listarTodos());
+        for (Patrimonio ob : obsPat) {
             if (ob.getEquipamento().equals(equipamento)) {
-                continua = false;
+                Mensagem.alerta(Alert.AlertType.ERROR, "ERRO AO EXCLUIR EQUIPAMENTO", "Existem patrimônios registrados com esse equipamento.", "Não é possível excluir um equipamento atrelado a um patrimonio.");
+                return;
             }
         }
 
-        if (continua == false) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "ERRO AO EXCLUIR EQUIPAMENTO", "Existem patrimônios registrados com esse equipamento.", "Não é possível excluir um equipamento atrelado a um patrimonio.");
-            return;
-        }
-
+        //EFETIVAMENTE EXCLUI CASO NÃO PARE NOS RETURNS ACIMA
         try {
             EquipamentoDAO edao = new EquipamentoDAO();
             boolean certeza = Mensagem.Confirmacao("Tem certeza que deseja excluir o equipamento?");
@@ -181,7 +179,7 @@ public class TelaEquipamentosController {
 
     void atualizaTable() {
         EquipamentoDAO edao = new EquipamentoDAO();
-                
+        ObservableList<Equipamento> obs = null;
         try {
             colEquip.setCellValueFactory(new PropertyValueFactory("descricao"));
             colEquip.setStyle("-fx-alignment: CENTER;");
@@ -194,10 +192,11 @@ public class TelaEquipamentosController {
                     -> new SimpleStringProperty(cellData.getValue().getModelo().getDescricao()));
             colModelo.setStyle("-fx-alignment: CENTER;");
 
-            ObservableList<Equipamento> obs = FXCollections.observableArrayList(edao.listarTodos());
+            obs = FXCollections.observableArrayList(edao.listarTodos());
 
+            
             tbEquipamentos.setItems(obs);
-
+            tbEquipamentos.refresh();
         } catch (Exception e) {
             Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao atualizar a tabela", "Não foi possível atualizar a tabela de equipamentos", "Por favor tente novamente.");
             System.out.println("ERRO AO ATUALIZAR A TABELA DE EQUIPAMENTOS" + e);

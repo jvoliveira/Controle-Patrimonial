@@ -20,7 +20,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="406.0" prefWidth="619.0" VBox.vgrow="ALWAYS">
       <children>
-            <TabPane layoutY="89.0" prefHeight="408.0" prefWidth="640.0" stylesheets="@../css/style.css" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutY="89.0" prefHeight="408.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                   <Tab closable="false" text="Manutenções">
                     <content>

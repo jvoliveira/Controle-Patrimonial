@@ -23,6 +23,9 @@ public class Equipamento implements Serializable {
     
     @OneToOne
     private Modelo modelo = new Modelo();
+    
+//    @OneToMany 
+   // Peca peca = new Peca();
 
     public Equipamento() {
     }

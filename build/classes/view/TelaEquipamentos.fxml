@@ -25,6 +25,7 @@
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
+   
                   </TableView>
                   <Button fx:id="btAtualizar" layoutX="563.0" layoutY="27.0" mnemonicParsing="false" onAction="#AtualizaTBEquipamento" text="Atualizar" />
                   <Button fx:id="btNovo" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#NovoEquipamento" text="Novo" />
