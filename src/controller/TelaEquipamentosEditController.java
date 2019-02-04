@@ -43,7 +43,7 @@ public class TelaEquipamentosEditController {
     @FXML
     void Atualizar(MouseEvent event) {
         if (tfDescricao.getText() == null || "".equals(tfDescricao.getText()) || "".equals(tfDescricao.getText()) || cbMarca.getSelectionModel().getSelectedItem() == null || cbModelo.getSelectionModel().getSelectedItem() == null) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao atualizar Equipamento", "Erro ao atualizar Equipamento", "Por favor preencha os campos corretamente.");
+            Mensagem.Erro("Erro ao atualizar Equipamento", "Por favor preencha os campos corretamente.");
 
         } else {
             try {
@@ -53,11 +53,11 @@ public class TelaEquipamentosEditController {
 
                 EquipamentoDAO edao = new EquipamentoDAO();
                 edao.atualizar(equipamento);
-                Mensagem.alerta(Alert.AlertType.INFORMATION, "Atualização de Equipamento", "Equipamento Atualizado com sucesso!", "");
+                Mensagem.Sucesso("Equipamento Atualizado com sucesso!");
                 btCancelar.getScene().getWindow().hide();
             } catch (Exception e) {
                 System.out.println("ERRO AO EDITAR EQUIPAMENTO: " + e);
-                Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao Atualizar Equipamento", "Erro ao atualizar Equipamento", "Por favor Verifique os dados e tente novamente.");
+                Mensagem.Erro("Erro ao atualizar Equipamento", "Por favor Verifique os dados e tente novamente.");
                 btCancelar.getScene().getWindow().hide();
             }
         }
@@ -72,23 +72,28 @@ public class TelaEquipamentosEditController {
     @FXML
     void novaMarca(MouseEvent event) {
 
-        String nome = Mensagem.entrada("Cadastrar Marca", "Insira o nome da Marca", "Marca:");
+        String nome = Mensagem.entradaDeDados("Cadastrar Marca", "Insira o nome da Marca", "Marca:");
+        
+        if(!nome.isEmpty()){
+            Marca marca = new Marca();
+            marca.setDescricao(nome);
 
-        Marca marca = new Marca();
-        marca.setDescricao(nome);
+            MarcaDAO marcaDAO = new MarcaDAO();
+            marcaDAO.incluir(marca);
+            atualizaCBS();
+        }else{
+            Mensagem.Erro("Erro ao Criar Marca", "Por favor insira o nome da Marca corretamente");
+        }
 
-        MarcaDAO marcaDAO = new MarcaDAO();
-        marcaDAO.incluir(marca);
-        atualizaCBS();
     }
 
     @FXML
     void novoModelo(MouseEvent event) {
 
         if (cbMarca.getSelectionModel().isEmpty()) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao criar novo modelo", "Erro ao criar modelo!", "Por favor selecione a marca antes de criar um novo modelo.");
+            Mensagem.alertaPersonalizado(Alert.AlertType.ERROR, "Erro ao criar novo modelo", "Erro ao criar modelo!", "Por favor selecione a marca antes de criar um novo modelo.");
         } else {
-            String nome = Mensagem.entrada("Cadastrar Modelo", "Insira o nome do Modelo", "Modelo:");
+            String nome = Mensagem.entradaDeDados("Cadastrar Modelo", "Insira o nome do Modelo", "Modelo:");
             Modelo modelo = new Modelo();
             modelo.setDescricao(nome);
             modelo.setMarca(cbMarca.getSelectionModel().getSelectedItem());

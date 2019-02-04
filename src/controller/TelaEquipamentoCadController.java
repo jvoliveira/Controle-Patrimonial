@@ -41,7 +41,7 @@ public class TelaEquipamentoCadController {
     @FXML
     void Cadastrar(MouseEvent event) {
         if (tfDescricao.getText() == null || "".equals(tfDescricao.getText()) || "".equals(tfDescricao.getText()) || cbMarca.getSelectionModel().getSelectedItem() == null || cbModelo.getSelectionModel().getSelectedItem() == null) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao cadastrar Equipamento", "Erro ao cadastrar Equipamento", "Por favor preencha os campos corretamente.");
+            Mensagem.Erro("Erro ao cadastrar Equipamento", "Por favor preencha os campos corretamente.");
 
         } else {
             try {
@@ -51,11 +51,11 @@ public class TelaEquipamentoCadController {
 
                 EquipamentoDAO edao = new EquipamentoDAO();
                 edao.incluir(equipamento);
-                Mensagem.alerta(Alert.AlertType.CONFIRMATION, "Cadastro de Equipamento", "Equipamento Cadastrado com sucesso!", "");
+                Mensagem.Sucesso("Equipamento Cadastrado com sucesso!");
                 btCancelar.getScene().getWindow().hide();
             } catch (Exception e) {
                 System.out.println("ERRO AO CADASTRAR EQUIPAMENTO: " + e);
-                Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao cadastrar Equipamento", "Erro ao cadastrar Equipamento", "Por favor Verifique os dados e tente novamente.");
+                Mensagem.Erro("Erro ao cadastrar Equipamento", "Por favor Verifique os dados e tente novamente.");
                 btCancelar.getScene().getWindow().hide();
             }
         }
@@ -70,7 +70,7 @@ public class TelaEquipamentoCadController {
     @FXML
     void novaMarca(MouseEvent event) {
 
-        String nome = Mensagem.entrada("Cadastrar Marca", "Insira o nome da Marca", "Marca:");
+        String nome = Mensagem.entradaDeDados("Cadastrar Marca", "Insira o nome da Marca", "Marca:");
         if(!nome.isEmpty()){
             Marca marca = new Marca();
             marca.setDescricao(nome);
@@ -78,6 +78,8 @@ public class TelaEquipamentoCadController {
             MarcaDAO marcaDAO = new MarcaDAO();
             marcaDAO.incluir(marca);
             atualizaCBS();
+        }else{
+            Mensagem.Erro("Erro ao Criar Marca", "Por favor insira o nome da Marca corretamente");
         }
         
     }
@@ -86,9 +88,9 @@ public class TelaEquipamentoCadController {
     void novoModelo(MouseEvent event) {
 
         if (cbMarca.getSelectionModel().isEmpty()) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao criar novo modelo", "Erro ao criar modelo!", "Por favor selecione a marca antes de criar um novo modelo.");
+            Mensagem.alertaPersonalizado(Alert.AlertType.ERROR, "Erro ao criar novo modelo", "Erro ao criar modelo!", "Por favor selecione a marca antes de criar um novo modelo.");
         } else {
-            String nome = Mensagem.entrada("Cadastrar Modelo", "Insira o nome do Modelo", "Modelo:");
+            String nome = Mensagem.entradaDeDados("Cadastrar Modelo", "Insira o nome do Modelo", "Modelo:");
             Modelo modelo = new Modelo();
             modelo.setDescricao(nome);
             modelo.setMarca(cbMarca.getSelectionModel().getSelectedItem());

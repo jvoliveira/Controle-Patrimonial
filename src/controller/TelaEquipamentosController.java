@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -56,7 +55,6 @@ public class TelaEquipamentosController {
 
     @FXML
     void AtualizaTBEquipamento(ActionEvent event) {
-        System.out.println("aaaa");
         atualizaTable();
     }
 
@@ -65,7 +63,7 @@ public class TelaEquipamentosController {
             this.equipamento = tbEquipamentos.getSelectionModel().getSelectedItem();
             
             if(equipamento == null){
-                Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao Editar Equipamento", "Por favor selecione um equipamento para editar", "");
+                Mensagem.Erro("Erro ao Editar Equipamento.","Por favor selecione um equipamento para editar.");
                 return;
             }
 
@@ -81,7 +79,9 @@ public class TelaEquipamentosController {
             stage.showAndWait();
             atualizaTable();
         } catch (Exception e) {
-            System.out.println("Erro ao abrir tela de cadastro");
+            System.out.println("Erro ao abrir tela de Equipamentos");
+            Mensagem.Erro("Não foi possível abrir a tela de Edição de Equipamentos.",null);
+
         }
             
     }
@@ -95,7 +95,7 @@ public class TelaEquipamentosController {
         
         //VERIFICA SE O EQUIPAMENTO FOI SELECIONADO
         if (equipamento == null) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "ERRO AO EXCLUIR EQUIPAMENTO", "Nenhum equipamento selecionado.", "Por favor selecione e tente novamente");
+            Mensagem.Erro("Nenhum equipamento selecionado.","Por favor selecione e tente novamente");
             return;
         }
         
@@ -105,7 +105,7 @@ public class TelaEquipamentosController {
         obsPat = FXCollections.observableArrayList(pdao.listarTodos());
         for (Patrimonio ob : obsPat) {
             if (ob.getEquipamento().equals(equipamento)) {
-                Mensagem.alerta(Alert.AlertType.ERROR, "ERRO AO EXCLUIR EQUIPAMENTO", "Existem patrimônios registrados com esse equipamento.", "Não é possível excluir um equipamento atrelado a um patrimonio.");
+                Mensagem.Erro("Existem patrimônios registrados com esse equipamento.", "Não é possível excluir um equipamento atrelado a um patrimonio.");
                 return;
             }
         }
@@ -113,15 +113,15 @@ public class TelaEquipamentosController {
         //EFETIVAMENTE EXCLUI CASO NÃO PARE NOS RETURNS ACIMA
         try {
             EquipamentoDAO edao = new EquipamentoDAO();
-            boolean certeza = Mensagem.Confirmacao("Tem certeza que deseja excluir o equipamento?");
+            boolean certeza = Mensagem.ConfirmacaoSN("Tem certeza que deseja excluir o equipamento?");
             if (certeza) {
                 edao.excluir(Equipamento.class, equipamento.getId());
-                Mensagem.alerta(Alert.AlertType.INFORMATION, "Excluir Equipamento", "Equipamento Excluido com Sucesso!", "");
+                Mensagem.Sucesso("Equipamento Excluido com Sucesso!");
                 atualizaTable();
             }
         } catch (Exception e) {
             System.out.println("erro excluir equipamento: " + e);
-            Mensagem.alerta(Alert.AlertType.INFORMATION, "Excluir Equipamento", "Não foi possível excluir realizar essa operação", "");
+            Mensagem.Erro("Não foi possível excluir esse equipamento", null);
         }
 
     }
@@ -143,6 +143,7 @@ public class TelaEquipamentosController {
             atualizaTable();
         } catch (Exception e) {
             System.out.println("Erro ao abrir tela de cadastro");
+            Mensagem.Erro("Não foi possível abrir o cadastro de equipamentos", null);
         }
 
     }
@@ -198,7 +199,7 @@ public class TelaEquipamentosController {
             tbEquipamentos.setItems(obs);
             tbEquipamentos.refresh();
         } catch (Exception e) {
-            Mensagem.alerta(Alert.AlertType.ERROR, "Erro ao atualizar a tabela", "Não foi possível atualizar a tabela de equipamentos", "Por favor tente novamente.");
+            Mensagem.Erro("Não foi possível atualizar a tabela de equipamentos", "Por favor tente novamente.");
             System.out.println("ERRO AO ATUALIZAR A TABELA DE EQUIPAMENTOS" + e);
         }
     }

@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import static main.Main.e;
 
 public class TelaPrincipalController {
@@ -139,6 +138,7 @@ public class TelaPrincipalController {
             stage.show();
         } catch (Exception e) {
             System.out.println("Erro ao abrir tela de cadastro: \n"+e);
+            Mensagem.Erro("Não Foi possível abrir a tela \nde Gerenciamento de Equipamentos",null);
         }
 
     }
@@ -160,12 +160,29 @@ public class TelaPrincipalController {
             stage.show();
         } catch (Exception e) {
             System.out.println("Erro ao abrir tela de marcas: \n"+e);
+            Mensagem.Erro("Não Foi possível abrir a tela \nde Gerenciamento de Marcas",null);
         }
     }
 
     @FXML
     void clickMiModelos(ActionEvent event) {
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/TelaModelos.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            
+            stage.setTitle("Gerenciar Modelos");
+            
+             stage.initOwner(menuBar.getScene().getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.resizableProperty().set(false);
+            stage.getIcons().add(e);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao abrir tela de Modelos: \n"+e);
+            Mensagem.Erro("Não Foi possível abrir a tela \nde Gerenciamento de Modelos",null);
+        }
     }
 
     @FXML
