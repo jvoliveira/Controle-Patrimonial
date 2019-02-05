@@ -10,14 +10,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="393.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaEquipamentosController">
+<VBox prefHeight="393.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaPecasController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="429.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
             <AnchorPane layoutY="45.0" minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="640.0">
                <children>
-                  <TableView fx:id="tbEquipamentos" layoutX="14.0" layoutY="60.0" prefHeight="305.0" prefWidth="613.0">
+                  <TableView fx:id="tbPecas" layoutX="14.0" layoutY="60.0" prefHeight="305.0" prefWidth="613.0">
                      <columns>
+                        <TableColumn fx:id="colPeca" prefWidth="75.0" text="Peça" />
                         <TableColumn fx:id="colEquip" prefWidth="75.0" text="Equipamento" />
                         <TableColumn fx:id="colMarca" prefWidth="75.0" text="Marca" />
                         <TableColumn fx:id="colModelo" prefWidth="75.0" text="Modelo" />
@@ -26,15 +27,15 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="btAtualizar" layoutX="563.0" layoutY="27.0" mnemonicParsing="false" onAction="#AtualizaTBEquipamento" text="Atualizar" />
-                  <Button fx:id="btNovo" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#NovoEquipamento" text="Novo" />
-                  <Button fx:id="btEditar" layoutX="67.0" layoutY="15.0" mnemonicParsing="false" onAction="#EditarEquipamento" text="Editar" />
-                  <Button fx:id="btExcluir" layoutX="122.0" layoutY="15.0" mnemonicParsing="false" onAction="#ExcluirEquipamento" text="Excluir" />
+                  <Button fx:id="btAtualizar" layoutX="563.0" layoutY="27.0" mnemonicParsing="false" onAction="#AtualizaTable" text="Atualizar" />
+                  <Button fx:id="btNovo" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#Novo" text="Novo" />
+                  <Button fx:id="btEditar" layoutX="67.0" layoutY="15.0" mnemonicParsing="false" onAction="#Editar" text="Editar" />
+                  <Button fx:id="btExcluir" layoutX="122.0" layoutY="15.0" mnemonicParsing="false" onAction="#Excluir" text="Excluir" />
                   <TextField fx:id="tfPesquisa" layoutX="402.0" layoutY="27.0" onKeyTyped="#PesquisaEquipamentos" promptText="Pesquisar..." />
                </children>
             </AnchorPane>
             <Separator layoutX="295.0" layoutY="50.0" prefHeight="0.0" prefWidth="50.0" />
-            <Label layoutX="251.0" layoutY="14.0" text="Equipamentos">
+            <Label layoutX="241.0" layoutY="14.0" text="Gerenciar Peças">
                <font>
                   <Font name="Trebuchet MS" size="22.0" />
                </font>

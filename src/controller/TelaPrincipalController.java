@@ -115,6 +115,27 @@ public class TelaPrincipalController {
     void clickMiChamado(ActionEvent event) {
 
     }
+    
+    @FXML
+    void clickMiLocais(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/TelaLocais.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            
+            stage.setTitle("Gerenciar Locais");
+            
+             stage.initOwner(menuBar.getScene().getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.resizableProperty().set(false);
+            stage.getIcons().add(e);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao abrir tela de Locais: \n"+e);
+            Mensagem.Erro("Não Foi possível abrir a tela \nde Gerenciamento de Locais",null);
+        }
+    }
 
     @FXML
     void clickMiEquip(ActionEvent event) {
@@ -187,12 +208,28 @@ public class TelaPrincipalController {
 
     @FXML
     void clickMiPecas(ActionEvent event) {
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/TelaPecas.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            
+            stage.setTitle("Gerenciar Peças");
+            
+             stage.initOwner(menuBar.getScene().getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.resizableProperty().set(false);
+            stage.getIcons().add(e);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Erro ao abrir tela de Pelas: \n"+e);
+            Mensagem.Erro("Não Foi possível abrir a tela \nde Gerenciamento de Peças",null);
+        }
     }
 
     @FXML
     void clickSair(ActionEvent event) {
-
+        tbManut.getScene().getWindow().hide();
     }
 
     @FXML

@@ -80,7 +80,7 @@ public class Equipamento implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Equipamento[ id=" + id + " ]";
+        return descricao;
     }
     
 }

@@ -63,7 +63,7 @@ public class TelaMarcasController {
         if(certeza){
             marca.setDescricao(novo);
             mdao.atualizar(marca);
-            Mensagem.Sucesso("Equipamento Editado com Sucesso!");
+            Mensagem.Sucesso("Marca Editado com Sucesso!");
         }
         
         

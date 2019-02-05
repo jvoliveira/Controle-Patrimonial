@@ -84,6 +84,7 @@
                         <MenuItem fx:id="miMarcas" mnemonicParsing="false" onAction="#clickMiMarcas" text="Marcas" />
                         <MenuItem fx:id="miModelos" mnemonicParsing="false" onAction="#clickMiModelos" text="Modelos" />
                         <MenuItem fx:id="miPecas" mnemonicParsing="false" onAction="#clickMiPecas" text="Peças" />
+                        <MenuItem fx:id="miLocal" mnemonicParsing="false" onAction="#clickMiLocais" text="Locais" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
