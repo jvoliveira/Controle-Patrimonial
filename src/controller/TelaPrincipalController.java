@@ -1,5 +1,9 @@
 package controller;
 
+import dao.PatrimonioDAO;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static main.Main.e;
+import model.Patrimonio;
 
 public class TelaPrincipalController {
 
@@ -33,7 +39,22 @@ public class TelaPrincipalController {
     private TextField tfPesquisaManut;
 
     @FXML
-    private TableView<?> tbPat;
+    private TableView<Patrimonio> tbPat;
+    
+    @FXML
+    private TableColumn<Patrimonio, String> colPat;
+
+    @FXML
+    private TableColumn<Patrimonio, String> colLocal;
+
+    @FXML
+    private TableColumn<Patrimonio, String> colEquip;
+
+    @FXML
+    private TableColumn<Patrimonio, String> colMarca;
+
+    @FXML
+    private TableColumn<Patrimonio, String> colModelo;
 
     @FXML
     private Button btAtualizaP;
@@ -235,6 +256,46 @@ public class TelaPrincipalController {
     @FXML
     void novoPatrimonio(ActionEvent event) {
 
+    }
+    
+    @FXML
+    void initialize(){
+        atualizaPat();
+    }
+    
+    void atualizaPat() {
+        PatrimonioDAO pdao = new PatrimonioDAO();
+        ObservableList<Patrimonio> obs = null;
+        try {
+            colEquip.setCellValueFactory(cellData
+                    -> new SimpleStringProperty(cellData.getValue().getEquipamento().getDescricao()));
+            colEquip.setStyle("-fx-alignment: CENTER;");
+
+            colMarca.setCellValueFactory(cellData
+                    -> new SimpleStringProperty(cellData.getValue().getEquipamento().getModelo().getMarca().getDescricao()));
+            colMarca.setStyle("-fx-alignment: CENTER;");
+
+            colModelo.setCellValueFactory(cellData
+                    -> new SimpleStringProperty(cellData.getValue().getEquipamento().getModelo().getDescricao()));
+            colModelo.setStyle("-fx-alignment: CENTER;");
+            
+            colLocal.setCellValueFactory(cellData
+                    -> new SimpleStringProperty(cellData.getValue().getLocall().getDescricao()));
+            colLocal.setStyle("-fx-alignment: CENTER;");
+            
+            colPat.setCellValueFactory(cellData
+                    -> new SimpleStringProperty(cellData.getValue().getSNUMPAT()));
+            colPat.setStyle("-fx-alignment: CENTER;");
+
+            obs = FXCollections.observableArrayList(pdao.listarTodos());
+
+            
+            tbPat.setItems(obs);
+            tbPat.refresh();
+        } catch (Exception e) {
+            Mensagem.Erro("Não foi possível atualizar a tabela de Patrimonios", "Por favor tente novamente.");
+            System.out.println("ERRO AO ATUALIZAR A TABELA DE Patrimonios" + e);
+        }
     }
 
 }

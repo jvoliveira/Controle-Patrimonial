@@ -29,7 +29,7 @@ public class Patrimonio implements Serializable {
     private Equipamento equipamento = new Equipamento();
     
     @Column(unique=true, nullable=false) 
-    private int patrimonio;
+    private int numPat;
     
     @OneToOne
     private Locall locall;
@@ -61,12 +61,16 @@ public class Patrimonio implements Serializable {
         this.equipamento = equipamento;
     }
 
-    public int getPatrimonio() {
-        return patrimonio;
+    public int getNumPat() {
+        return numPat;
+    }
+    
+    public String getSNUMPAT(){
+        return Integer.toString(numPat);
     }
 
-    public void setPatrimonio(int patrimonio) {
-        this.patrimonio = patrimonio;
+    public void setNumPat(int numpat) {
+        this.numPat = numpat;
     }
     
 
